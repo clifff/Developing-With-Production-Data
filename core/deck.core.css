@@ -96,7 +96,7 @@ html {
   outline: none;
 }
 .deck-container ul, .deck-container ol {
-  margin-left: 2em;
+  margin-left: 1em;
   vertical-align: top;
 }
 .deck-container ol {
@@ -168,13 +168,13 @@ html {
   -ms-interpolation-mode: bicubic;
 }
 .deck-container, .deck-container select, .deck-container input, .deck-container textarea {
-  color: #444;
+  color: #fff;
 }
 .deck-container a {
-  color: #607890;
+  color: #fff;
 }
 .deck-container a:hover, .deck-container a:focus {
-  color: #036;
+  color: #fff;
 }
 .deck-container a:link {
   -webkit-tap-highlight-color: #fff;
@@ -189,12 +189,12 @@ html {
   position: relative;
 }
 .slide h1 {
-  font-size: 4.5em;
+  font-size: 4em;
 }
 .slide h1, .slide .vcenter {
   font-weight: bold;
   text-align: center;
-  padding-top: 1em;
+  padding-top: 25%;
   max-height: 100%;
 }
 .csstransforms .slide h1, .csstransforms .slide .vcenter {
@@ -211,7 +211,7 @@ html {
 }
 .slide .vcenter h1 {
   position: relative;
-  top: auto;
+  top: 50%;
   padding: 0;
   -webkit-transform: none;
   -moz-transform: none;
@@ -220,10 +220,11 @@ html {
   transform: none;
 }
 .slide h2 {
-  font-size: 2.25em;
+  text-align: center;
+  font-size: 3em;
   font-weight: bold;
-  padding-top: .5em;
-  margin: 0 0 .66666em 0;
+  padding-top: 5%;
+  margin: 0 0 .4em 0;
   border-bottom: 3px solid #888;
 }
 .slide h3 {
@@ -254,7 +255,7 @@ html {
   margin: 0 auto;
 }
 .slide p, .slide blockquote, .slide iframe, .slide img, .slide ul, .slide ol, .slide pre, .slide video {
-  margin-bottom: 1em;
+  font-size: 2em;
 }
 .slide pre {
   white-space: pre;
@@ -266,8 +267,12 @@ html {
 .slide em {
   font-style: italic;
 }
+.slide ul {
+    font-size: 1.5em; !important
+}
+
 .slide li {
-  padding: .25em 0;
+  margin: 0 .2em .4em 0;
   vertical-align: middle;
 }
 
@@ -323,7 +328,7 @@ body.deck-container {
   }
 
   a, a:visited {
-    color: #444 !important;
+    color: #11A9E2 !important;
     text-decoration: underline;
   }
 
@@ -401,4 +406,16 @@ body.deck-container {
   script {
     display: none;
   }
+}
+
+ul ul li {
+  font-size: 60% !important;
+}
+
+ul ul ul li {
+  font-size: 36% !important;
+}
+
+ul ul ul ul li {
+  font-size: 21.6% !important;
 }

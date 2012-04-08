@@ -25,13 +25,22 @@
   <script src="//cdnjs.cloudflare.com/ajax/libs/modernizr/2.5.3/modernizr.min.js"></script>
 </head>
 <body class="deck-container">
+  <article>
   <section class="slide">
-    <h1>Developing With Production Data</h1>
+    <h1>Developing With<br/>Production Data</h1>
   </section>
 
   <section class="slide">
+    <h2>Clif Reeder</h2>
+    <p>Email: <a href='mailto:clif@voxmedia.com'>clif@voxmedia.com</a></p>
+    <p>Twitter: <a href='https://twitter.com/#!/clifreeder'>@clifreeder</a></p>
+    <p>Blog: <a href='http://blog.clifreeder.com'>blog.clifreeder.com</a></p>
+  </section>
+
+
+  <section class="slide">
     <h2>Problem</h2>
-    <p>How do we keep developer/tester data useful?</p>
+    <p>How do we keep developer and tester data useful?</p>
   </section>
 
   <section class="slide">
@@ -46,12 +55,12 @@
   </section>
 
   <section class="slide">
-    <h2>Who has this problem?</h2>
+    <h1>Who has this problem?</h1>
   </section>
 
   <section class="slide">
     <h2>Vox Media</h2>
-    <p>Vox Media. We run...
+    <p>At Vox Media, we run:
       <ul>
         <li>SBNation.com</li>
         <li>300+ sports blogs</li>
@@ -60,18 +69,7 @@
         <li>One big CMS, with lots of user generated content w/ different styles</li>
       </ul>
     </p>
-    <p>PS: Rails 2.3, MySQL. Lots of other stuff too.</p>
-  </section>
-
-  <section class="slide">
-    <h2>Clif Reeder</h2>
-    <p>
-      <ul>
-        <li>Email: <a href='mailto:clif@voxmedia.com'>clif@voxmedia.com</a></li>
-        <li>Twitter: <a href='https://twitter.com/#!/clifreeder'>@clifreeder</a></li>
-        <li>Blog: <a href='http://blog.clifreeder.com'>blog.clifreeder.com</a></li>
-      </ul>
-    </p>
+    <p>PS: Rails 2.3, MySQL. Lots of other stuff too</p>
   </section>
 
   <section class="slide">
@@ -81,19 +79,13 @@
 
   <section class="slide">
     <h2>Complications</h2>
-    <p>
-      Production database is ~75 GB, so that's not really an option. How do we get a subset?
-    </p>
-    <p>
-      How do we share external assets and make that work? (S3, etc)
-    </p>
-    <p>
-      How do we make internal, external services play nice? (Staircar)
-    </p>
+    <p>Production database is ~75 GB, so that's not really an option. How do we get a subset?</p><br/>
+    <p>How do we share external assets and make that work? (S3, etc)</p><br/>
+    <p>How do we make internal, external services play nice? (Staircar)</p>
   </section>
 
   <section class="slide">
-    <h2>How is it used? Rake</h2>
+    <h2>How is it used? Rake.</h2>
     <p>
       <ul>
         <li>Rake task to create</li>
@@ -114,7 +106,7 @@
   </section>
 
   <section class="slide">
-    <h2>General Process / This talk in one slide</h2>
+    <h2>General Process</h2>
     <p>
       <ul>
         <li>Connect AR to DB slave</li>
@@ -151,14 +143,14 @@
 
   <section class="slide">
   <h2>Questions?</h2>
-  <p>
-    <ul>
-      <li>Email: <a href='mailto:clif@voxmedia.com'>clif@voxmedia.com</a></li>
-      <li>Twitter: <a href='https://twitter.com/#!/clifreeder'>@clifreeder</a></li>
-      <li>Blog: <a href='http://blog.clifreeder.com'>blog.clifreeder.com</a></li>
-    </ul>
-  </p>
+    <p>Email: <a href='mailto:clif@voxmedia.com'>clif@voxmedia.com</a></p>
+    <p>Twitter: <a href='https://twitter.com/#!/clifreeder'>@clifreeder</a></p>
+    <p>Blog: <a href='http://blog.clifreeder.com'>blog.clifreeder.com</a></p>
   <section>
+  </article>
+  <footer>
+    <img src="http://i.imgur.com/IsEvG.png" alt='vox-media-logo'/ style="width:350px; position:absolute; bottom:10px; right:48px">
+  </footer>
 
   <!-- Grab CDN jQuery, with a protocol relative URL; fall back to local if offline -->
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
