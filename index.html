@@ -27,79 +27,101 @@
 <body class="deck-container">
   <article>
   <section class="slide">
-    <h1>Developing With<br/>Production Data</h1>
+    <h1>Developing With Production Data</h1>
   </section>
 
   <section class="slide">
-    <h2>Clif Reeder</h2>
-    <p>Email: <a href='mailto:clif@voxmedia.com'>clif@voxmedia.com</a></p>
-    <p>Twitter: <a href='https://twitter.com/#!/clifreeder'>@clifreeder</a></p>
-    <p>Blog: <a href='http://blog.clifreeder.com'>blog.clifreeder.com</a></p>
-  </section>
-
-
-  <section class="slide">
-    <h2>Problem</h2>
-    <p>How do we keep developer and tester data useful?</p>
+    <h2>Problems</h2>
+    <ul>
+      <li>What does a developer see when they first start the app?</li>
+      <li>What kind of data is a designer using for example?</li>
+      <li>What data does a QA tester use?</li>
+    </ul>
   </section>
 
   <section class="slide">
-    <h2>Solutions</h2>
-    <p>
-      <ul>
-        <li>'Right' answer is probably fixtures/written test data.</li>
-        <li>Have some scripts to bootstrap enough useful data</li>
-        <li>Use production data?</li>
-      <ul>
-    </p>
-  </section>
-
-  <section class="slide">
-    <h1>Who has this problem?</h1>
+    <h1>Who are you, anyway?</h1>
   </section>
 
   <section class="slide">
     <h2>Vox Media</h2>
-    <p>At Vox Media, we run:
       <ul>
-        <li>SBNation.com</li>
-        <li>300+ sports blogs</li>
-        <li>21 Regional Sites</li>
         <li>The Verge</li>
+        <li>SBNation.com</li>
+        <li>320+ sports blogs</li>
+        <li>21 Regional Sites</li>
         <li>One big CMS, with lots of user generated content w/ different styles</li>
       </ul>
     </p>
-    <p>PS: Rails 2.3, MySQL. Lots of other stuff too</p>
   </section>
 
   <section class="slide">
+    <h2>Solutions</h2>
+    <pre>
+<code>5.times.each do |j|
+  Story.create!(
+    :user => users[:author],
+    :community => community,
+    :title => title(j),
+    :body => lorem_ipsum()
+  )
+end</code></pre>
+  </section>
+
+  <section class="slide">
+  <h2>What if we could use REAL data?</h2>
+  </section>
+
+
+  <section class="slide">
     <h2> This is my dev environment</h2>
-    <img src="https://img.skitch.com/20120326-n6iw38u5e4498had9nn2sjiqf1.jpg" alt='example' />
+    <img src="https://img.skitch.com/20120326-n6iw38u5e4498had9nn2sjiqf1.jpg" alt='example' style='height:400px'/>
   </section>
 
   <section class="slide">
     <h2>Complications</h2>
-    <p>Production database is ~75 GB, so that's not really an option. How do we get a subset?</p><br/>
-    <p>How do we share external assets and make that work? (S3, etc)</p><br/>
-    <p>How do we make internal, external services play nice? (Staircar)</p>
+    <p><em>Size</em> - Production database is > 100 GB, so that's not really an option. How do we get a subset?</p><br/>
+    <p><em>Assets</em> - How do we share external assets and make that work? (S3, etc)</p><br/>
+    <p><em>Services</em> - How do we make internal, external services play nice? (Staircar)</p>
   </section>
 
   <section class="slide">
+    <h2>Alternative talk titles</h2>
+    <ul>
+      <li>Creating a representative subset of production data</li>
+      <li>Imperfect, hacky SQL that greatly improves developers lives</li>
+    </ul>
+  </section>
+
+  <section class="slide">
+    <h2>Results</h2>
+    <ul>
+      <li>Production DB is 118 GB</li>
+      <li>Development DB is 4.7 GB </li>
+      <li>Gzipped SQL is 650 MB</li>
+    </ul>
+  </section>
+
+
+  <!--
+  <section class="slide">
     <h2>How is it used? Rake.</h2>
     <p>
+      AWKWARD
       <ul>
         <li>Rake task to create</li>
         <li>Rake task to download/import</li>
      </ul>
     </p>
   </section>
+  -->
 
   <section class="slide">
     <h2>Prerequisites</h2>
     <p>
       <ul>
-        <li>Slave DB is a must</li>
         <li>You actually have this problem</li>
+        <li>Slave DB is a must</li>
         <li>Figure out what you're largest tables are, and approximate what a meaningul subset would be.</p>
       </ul>
     </p>
@@ -129,25 +151,62 @@
   </section>
 
   <section class="slide">
-    <h2> Process conintuned...</h2>
-    <p>
+    <h2>It's a Trap!</h2>
+    <ul>
+      <li>Need a list of all models. Can be tricky w/ namespaces and inheritence</li>
+      <li>def self.has_belongs_relationship_to?(model)</li>
       <ul>
-        <li>Anonymize user data</li>
-        <li>Change all passwords to known crypted/salt</li>
-        <li>Wipe all stored ip adresses</li>
-        <li>Wipe all stored analytics related data</li>
-        <li>Anonymize all emails, etc, etc</li>
-        <li>Dump that temporary DB, gzip, upload to S3</li>
-    </p>
+        <li>self.reflect_on_all_associations.select{ |x| x.macro == :belongs_to }</li>
+        <li>Detect polymorphism</li>
+      </ul>
+      <li>Always raw SQL if possible - but don't let AR go to sleep</li>
+    </ul>
   </section>
 
   <section class="slide">
-  <h2>Questions?</h2>
+    <h2> Process conintuned...</h2>
+    <ul>
+      <li>Anonymize user data</li>
+      <li>Change all passwords to known crypted/salt</li>
+      <li>Wipe all stored ip adresses</li>
+      <li>Wipe all stored analytics related data</li>
+      <li>Anonymize all emails, etc, etc</li>
+      <li>Dump that temporary DB, gzip, upload to S3</li>
+    </ul>
+  </section>
+
+  <section class="slide">
+    <h2>Assets</h2>
+    <ul>
+      <li>Every non-production environment assumes assets are from production</li>
+      <li>Append token to start of newly created asset filenames</li>
+      <li>Check for token when generating url. If local, use non-production S3 settings</li>
+    </ul>
+  </section>
+
+  <section class="slide">
+    <h2>Services</h2>
+    <ul>
+      <li>Non-production environments all point to staging</li>
+      <li>Append token to start of newly created asset filenames</li>
+      <li>Check for token when generating url. If local, use non-production S3 settings</li>
+    </ul>
+  </section>
+
+  <section class="slide">
+    <h2>We're Hiring</h2>
+    <p>We need developers (and designers if that's your thing)</p>
+    <h4><a href='http://jobs.voxmedia.com'>jobs.voxmedia.com</a></h4>
+  </section>
+
+  <section class="slide">
+    <h2>Questions?</h2>
     <p>Email: <a href='mailto:clif@voxmedia.com'>clif@voxmedia.com</a></p>
     <p>Twitter: <a href='https://twitter.com/#!/clifreeder'>@clifreeder</a></p>
     <p>Blog: <a href='http://blog.clifreeder.com'>blog.clifreeder.com</a></p>
   <section>
   </article>
+
   <footer>
     <img src="http://i.imgur.com/IsEvG.png" alt='vox-media-logo'/ style="width:350px; position:absolute; bottom:10px; right:48px">
   </footer>

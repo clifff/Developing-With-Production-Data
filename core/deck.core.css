@@ -198,7 +198,7 @@ html {
   max-height: 100%;
 }
 .csstransforms .slide h1, .csstransforms .slide .vcenter {
-  padding: 0 48px;
+  /* padding: 0 48px; */
   position: absolute;
   left: 0;
   right: 0;
@@ -261,7 +261,6 @@ html {
   white-space: pre;
   white-space: pre-wrap;
   word-wrap: break-word;
-  padding: 1em;
   border: 1px solid #888;
 }
 .slide em {
