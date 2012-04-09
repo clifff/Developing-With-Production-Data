@@ -1,6 +1,6 @@
 @font-face {
   font-family: "Gotham";
-  src: url(/themes/Gotham-Black.otf);
+  src: url(./themes/Gotham-Black.otf);
 }
 
 @charset "UTF-8";
@@ -83,7 +83,7 @@
 
 .deck-container .slide h4 {
   text-align: center;
-  -webkit-margin-before: 3em;
+  -webkit-margin-before: 2em;
 }
 .deck-container .slide h4 a {
   color: white;
