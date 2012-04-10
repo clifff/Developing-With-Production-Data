@@ -35,19 +35,6 @@
   </section>
 
   <section class="slide">
-    <h2>Problems</h2>
-    <ul>
-      <li>What does a developer see when they first start the app?</li>
-      <li>What kind of data is a designer using for example?</li>
-      <li>What data does a QA tester use?</li>
-    </ul>
-  </section>
-
-  <section class="slide">
-    <h1>Who are you, anyway?</h1>
-  </section>
-
-  <section class="slide">
     <h2>Vox Media</h2>
       <ul>
         <li>The Verge</li>
@@ -60,7 +47,16 @@
   </section>
 
   <section class="slide">
-    <h2>Solutions</h2>
+    <h2>Problems</h2>
+    <ul>
+      <li>What does a developer see when they first start the app?</li>
+      <li>What kind of data is a designer using for example?</li>
+      <li>What data does a QA tester use?</li>
+    </ul>
+  </section>
+
+  <section class="slide">
+    <h2>Script it?</h2>
     <pre>
 <code>5.times.each do |j|
   Story.create!(
@@ -73,7 +69,28 @@ end</code></pre>
   </section>
 
   <section class="slide">
-  <h2>What if we could use REAL data?</h2>
+    <h2>That solution isn't very good</h2>
+    <ul>
+      <li>Have to constantly update the script</li>
+      <li>Recreate data from production to recreate bugs anyway</li>
+      <li>From a team perspective, using the local app is a terrible experience</li>
+    </ul>
+  </section>
+
+  <section class="slide">
+    <h2>Use production data!</h2>
+    <p><em>Alternative talk titles</em></p>
+    <ul>
+      <li>Creating a representative subset of production data</li>
+      <li>Imperfect, hacky SQL that greatly improves developers lives</li>
+    </ul>
+  </section>
+
+  <section class="slide">
+    <h2>Complications</h2>
+    <p><em>Size</em> - Production database is > 100 GB, so that's not really an option. How do we get a subset?</p><br/>
+    <p><em>Assets</em> - How do we share external assets and make that work? (S3, etc)</p><br/>
+    <p><em>Services</em> - How do we make internal services play nice? (Staircar)</p>
   </section>
 
 
@@ -83,29 +100,15 @@ end</code></pre>
   </section>
 
   <section class="slide">
-    <h2>Complications</h2>
-    <p><em>Size</em> - Production database is > 100 GB, so that's not really an option. How do we get a subset?</p><br/>
-    <p><em>Assets</em> - How do we share external assets and make that work? (S3, etc)</p><br/>
-    <p><em>Services</em> - How do we make internal, external services play nice? (Staircar)</p>
-  </section>
-
-  <section class="slide">
-    <h2>Alternative talk titles</h2>
-    <ul>
-      <li>Creating a representative subset of production data</li>
-      <li>Imperfect, hacky SQL that greatly improves developers lives</li>
-    </ul>
-  </section>
-
-  <section class="slide">
     <h2>Results</h2>
     <ul>
       <li>Production DB is 118 GB</li>
       <li>Development DB is 4.7 GB </li>
       <li>Gzipped SQL is 650 MB</li>
+      <li>90 minutes to create</li>
+      <li>60 minutes to import (SSD)</li>
     </ul>
   </section>
-
 
   <!--
   <section class="slide">
@@ -126,7 +129,8 @@ end</code></pre>
       <ul>
         <li>You actually have this problem</li>
         <li>Slave DB is a must</li>
-        <li>Figure out what you're largest tables are, and approximate what a meaningul subset would be.</p>
+        <li>Figure out what you're largest tables are, and approximate what a meaningful subset would be.</li>
+        <li>Time for trial and error</li>
       </ul>
     </p>
   </section>
@@ -157,7 +161,7 @@ end</code></pre>
   <section class="slide">
     <h2>It's a Trap!</h2>
     <ul>
-      <li>Need a list of all models. Can be tricky w/ namespaces and inheritence</li>
+      <li>Need a list of all models. Can be tricky w/ namespaces and inheritance</li>
       <li>def self.has_belongs_relationship_to?(model)</li>
       <ul>
         <li>self.reflect_on_all_associations.select{ |x| x.macro == :belongs_to }</li>
@@ -172,7 +176,7 @@ end</code></pre>
     <ul>
       <li>Anonymize user data</li>
       <li>Change all passwords to known crypted/salt</li>
-      <li>Wipe all stored ip adresses</li>
+      <li>Wipe all stored ip addresses</li>
       <li>Wipe all stored analytics related data</li>
       <li>Anonymize all emails, etc, etc</li>
       <li>Dump that temporary DB, gzip, upload to S3</li>
@@ -192,8 +196,7 @@ end</code></pre>
     <h2>Services</h2>
     <ul>
       <li>Non-production environments all point to staging</li>
-      <li>Append token to start of newly created asset filenames</li>
-      <li>Check for token when generating url. If local, use non-production S3 settings</li>
+      <li>Staging data mirrors production data, maybe synced weekly</li>
     </ul>
   </section>
 
