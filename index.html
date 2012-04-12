@@ -37,11 +37,12 @@
   <section class="slide">
     <h2>Vox Media</h2>
       <ul>
+        <li>One big media platform called Chorus</li>
         <li>The Verge</li>
         <li>SBNation.com</li>
         <li>320+ sports blogs</li>
         <li>21 Regional Sites</li>
-        <li>One big CMS, with lots of user generated content w/ different styles</li>
+        <li>Lots of user generated content, and lots of different styles</li>
       </ul>
     </p>
   </section>
@@ -123,7 +124,7 @@ end</code></pre>
         <li>You actually have this problem</li>
         <li>Slave DB is a must</li>
         <li>Time for trial and error</li>
-        <li>Figure out what you're largest tables are, and approximate what a meaningful subset would be.</li>
+        <li>Figure out what youre largest tables are, and approximate what a meaningful subset would be.</li>
       </ul>
     </p>
   </section>
@@ -133,7 +134,7 @@ end</code></pre>
     <p>
       <ul>
         <li>Connect AR to DB slave</li>
-        <li>For every table, dump to file. A subset, if its a big table</li>
+        <li>For every table, dump to file. A subset, if it's a big table</li>
         <li>mysqldump <em>database table</em> --skip-comments --single-transaction --quick </li>
         <li>Import that dump into a temporary DB</li>
           <ul>
