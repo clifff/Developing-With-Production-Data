@@ -31,7 +31,7 @@
   </section>
 
   <section class="slide">
-    <h1>Test Data isn't very good</h1>
+    <h1>Test data isn't very good</h1>
   </section>
 
   <section class="slide">
@@ -79,6 +79,12 @@ end</code></pre>
 
   <section class="slide">
     <h2>Use production data!</h2>
+    <h4 class="slide">
+      That would be great if my database wasn't massive
+    </h4>
+  </section>
+
+  <section class="slide">
     <p><em>Alternative talk titles</em></p>
     <ul>
       <li>Creating a representative subset of production data</li>
@@ -110,27 +116,14 @@ end</code></pre>
     </ul>
   </section>
 
-  <!--
-  <section class="slide">
-    <h2>How is it used? Rake.</h2>
-    <p>
-      AWKWARD
-      <ul>
-        <li>Rake task to create</li>
-        <li>Rake task to download/import</li>
-     </ul>
-    </p>
-  </section>
-  -->
-
   <section class="slide">
     <h2>Prerequisites</h2>
     <p>
       <ul>
         <li>You actually have this problem</li>
         <li>Slave DB is a must</li>
-        <li>Figure out what you're largest tables are, and approximate what a meaningful subset would be.</li>
         <li>Time for trial and error</li>
+        <li>Figure out what you're largest tables are, and approximate what a meaningful subset would be.</li>
       </ul>
     </p>
   </section>
@@ -140,7 +133,8 @@ end</code></pre>
     <p>
       <ul>
         <li>Connect AR to DB slave</li>
-        <li>For every table, mysqldump to file. A subset, if its a big table</li>
+        <li>For every table, dump to file. A subset, if its a big table</li>
+        <li>mysqldump <em>database table</em> --skip-comments --single-transaction --quick </li>
         <li>Import that dump into a temporary DB</li>
           <ul>
             <li>Why? Because we need to anonymize/delete things.</li>
@@ -159,6 +153,18 @@ end</code></pre>
   </section>
 
   <section class="slide">
+    <h2> Process continued...</h2>
+    <ul>
+      <li>Anonymize user data</li>
+      <li>Wipe all stored ip addresses</li>
+      <li>Wipe all stored analytics related data</li>
+      <li>Anonymize all emails, etc, etc</li>
+      <li>Change all passwords to known crypted/salt</li>
+      <li>Dump that temporary DB, gzip, upload to S3</li>
+    </ul>
+  </section>
+
+  <section class="slide">
     <h2>It's a Trap!</h2>
     <ul>
       <li>Need a list of all models. Can be tricky w/ namespaces and inheritance</li>
@@ -166,20 +172,9 @@ end</code></pre>
       <ul>
         <li>self.reflect_on_all_associations.select{ |x| x.macro == :belongs_to }</li>
         <li>Detect polymorphism</li>
+        <li>Does it belong to a subtype of that other class?</li>
       </ul>
       <li>Always raw SQL if possible - but don't let AR go to sleep</li>
-    </ul>
-  </section>
-
-  <section class="slide">
-    <h2> Process continued...</h2>
-    <ul>
-      <li>Anonymize user data</li>
-      <li>Change all passwords to known crypted/salt</li>
-      <li>Wipe all stored ip addresses</li>
-      <li>Wipe all stored analytics related data</li>
-      <li>Anonymize all emails, etc, etc</li>
-      <li>Dump that temporary DB, gzip, upload to S3</li>
     </ul>
   </section>
 
